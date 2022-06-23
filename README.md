@@ -2,7 +2,7 @@
 # Network automation
 
 This repository contains some examples of network automation developed in 3 different technologies.
-these are the following:
+These are the following:
 
 - Netmiko
 - Ansible
