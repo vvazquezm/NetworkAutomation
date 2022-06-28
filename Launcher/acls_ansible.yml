@@ -1,0 +1,65 @@
+---
+
+- name: Create ACLs
+  hosts: routers
+  gather_facts: False        
+  connection: network_cli
+
+  tasks:
+    - name: Extended_ACL      
+      cisco.ios.ios_acls:         #cisco module for acls
+        config:
+        - afi: ipv4               #address family indicator to use IPv4 ACLs
+          acls:
+          - name: '101'
+            acl_type: extended
+            aces:
+            - grant: permit
+              protocol: ip
+              source:
+                any: true
+              destination:
+                address: 10.6.0.0
+                wildcard_bits: 0.0.255.255
+          - name: '102'
+            acl_type: extended
+            aces:
+            - grant: permit
+              protocol_options: 
+                icmp:
+                  echo: true
+              source:
+                address: 10.100.100.100
+                wildcard_bits: 0.0.3.0
+              destination:
+                address: 10.6.252.0
+                wildcard_bits: 0.0.3.255
+          - name: '103'
+            acl_type: extended
+            aces:
+            - grant: permit
+              protocol_options:
+                tcp:
+                  established: true
+              source:
+                address: 10.100.100.0
+                wildcard_bits: 0.0.3.255
+              destination:
+                address: 10.6.252.0
+                wildcard_bits: 0.0.3.255
+                port_protocol:
+                  gt: '4000'
+          - name: '104'
+            acl_type: extended
+            aces:
+            - grant: permit
+              protocol: udp
+              source:
+                address: 10.100.100.0
+                wildcard_bits: 0.0.3.0
+              destination:
+                address: 10.6.252.0
+                wildcard_bits: 0.0.3.255
+                port_protocol:
+                  lt: '4000'
+        state: overridden                 #If ACL is already created update it

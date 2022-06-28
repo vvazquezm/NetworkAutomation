@@ -1,0 +1,47 @@
+---
+
+- name: Cisco create Vlans
+  hosts: switches
+  gather_facts: false
+  connection: network_cli
+  tasks:
+    - name: Creacion de las Vlans
+      cisco.ios.ios_vlans:
+        config:
+        - name: Vlan_ansible_222
+          vlan_id: 222
+          state: active
+          shutdown: disabled
+        - name: Vlan_ansible_223
+          vlan_id: 223
+          state: active
+          shutdown: disabled
+        - name: Vlan_ansible_224
+          vlan_id: 224
+          state: active
+          shutdown: disabled
+        - name: Vlan_ansible_225
+          vlan_id: 225
+          state: active
+          shutdown: disabled
+        - name: Vlan_ansible_226
+          vlan_id: 226
+          state: active
+          shutdown: disabled
+        - name: Vlan_ansible_227
+          vlan_id: 227
+          state: active
+          shutdown: disabled
+        - name: Vlan_ansible_228
+          vlan_id: 228
+          state: active
+          shutdown: disabled
+        - name: Vlan_ansible_229
+          vlan_id: 229
+          state: active
+          shutdown: disabled
+        - name: Vlan_ansible_230
+          vlan_id: 230
+          state: active
+          shutdown: disabled
+        state: merged

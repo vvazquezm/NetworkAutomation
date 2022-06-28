@@ -1,0 +1,14 @@
+---
+
+- name: Cisco Shutdown not connected Interfaces
+  hosts: switches
+  gather_facts: True     #Get info from switches
+  connection: network_cli
+
+  tasks:
+    - name: Shutdown Interfaces     
+      ios_config:
+        lines: shutdown
+        parents: "interface {{ item.key }}"           
+      with_dict: "{{ ansible_net_interfaces }}"       #using data retrived from the switches
+      when: item.value.operstatus == "down"           #if operative status is down

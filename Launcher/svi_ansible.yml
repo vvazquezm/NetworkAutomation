@@ -1,0 +1,15 @@
+---
+
+- name: Create SVI
+  hosts: switches
+  gather_facts: False
+  connection: network_cli
+  tasks:
+      - name: Vlan 100 SVI
+        ios_config:
+          parents: interface vlan 100
+          lines: 
+            - ip address 100.100.100.100 255.255.255.0
+            - no shut
+            - exit
+            - vlan 100
